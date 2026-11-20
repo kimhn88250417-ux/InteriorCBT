@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>실내건축산업기사 기출문제 CBT</title>
+  <style>
+    :root {
+      --bg: #f4f6fb;
+      --card: #ffffff;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --primary: #3b82f6;
+      --primary-hover: #2563eb;
+      --primary-soft: #eff6ff;
+      --success: #16a34a;
+      --success-soft: #dcfce7;
+      --danger: #dc2626;
+      --danger-soft: #fee2e2;
+      --warn: #d97706;
+      --warn-soft: #fef3c7;
+      --shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+      --radius: 14px;
+    }
+
+    body.dark {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --border: #334155;
+      --primary: #60a5fa;
+      --primary-hover: #3b82f6;
+      --primary-soft: #1e3a8a;
+      --success: #4ade80;
+      --success-soft: #14532d;
+      --danger: #f87171;
+      --danger-soft: #7f1d1d;
+      --warn: #fbbf24;
+      --warn-soft: #78350f;
+      --shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Pretendard', 'Noto Sans KR', 'Malgun Gothic', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    header {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+    .header-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-badge {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 800;
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+    .brand h1 { margin: 0; font-size: 18px; font-weight: 800; letter-spacing: -0.3px; }
+    .brand-sub { font-size: 12px; color: var(--muted); }
+    .header-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+    .btn {
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      padding: 7px 13px;
+      border-radius: 9px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .btn:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn.active, .btn-primary {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover:not(:disabled) { background: var(--primary-hover); color: #fff; }
+    .btn-success {
+      background: var(--success);
+      border-color: var(--success);
+      color: #fff;
+    }
+    .btn-danger { color: var(--danger); }
+    .btn-danger:hover:not(:disabled) { border-color: var(--danger); background: var(--danger-soft); }
+
+    .container {
+      max-width: 1180px;
+      margin: 18px auto 60px;
+      padding: 0 16px;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .stat-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+    .stat-label { font-size: 11px; color: var(--muted); font-weight: 600; }
+    .stat-val { font-size: 19px; font-weight: 800; margin-top: 2px; }
+    .stat-val.green { color: var(--success); }
+    .stat-val.red { color: var(--danger); }
+    .stat-val.blue { color: var(--primary); }
+
+    .progress-bar-wrap {
+      height: 8px;
+      background: var(--bg);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      margin-bottom: 14px;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--success));
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .filters-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+      gap: 10px;
+      align-items: end;
+    }
+    .filter-group label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .filter-group select, .filter-group input {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+      outline: none;
+    }
+    .filter-group select:focus, .filter-group input:focus { border-color: var(--primary); }
+
+    .mode-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+    .mode-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .q-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+    .q-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+    .q-badges { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .badge.subj { background: var(--primary-soft); color: var(--primary); border-color: transparent; }
+    .badge.dup { background: var(--warn-soft); color: var(--warn); border-color: transparent; }
+
+    .q-num-title { font-size: 17px; font-weight: 700; margin-bottom: 14px; line-height: 1.65; }
+    .q-num { color: var(--primary); font-weight: 800; margin-right: 6px; }
+    .q-extra { margin-top: 10px; }
+    .q-img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin: 8px 0;
+      cursor: zoom-in;
+      background: #fff;
+      padding: 4px;
+    }
+
+    .choices { display: flex; flex-direction: column; gap: 9px; margin-top: 10px; }
+    .choice-btn {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      width: 100%;
+      text-align: left;
+      padding: 12px 15px;
+      border: 1.5px solid var(--border);
+      border-radius: 11px;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      cursor: pointer;
+      transition: all 0.14s;
+      line-height: 1.55;
+    }
+    .choice-btn:hover { border-color: var(--primary); background: var(--primary-soft); }
+    .choice-num {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 800;
+      margin-top: 2px;
+    }
+    .choice-btn.selected { border-color: var(--primary); background: var(--primary-soft); }
+    .choice-btn.selected .choice-num { background: var(--primary); border-color: var(--primary); color: #fff; }
+    .choice-btn.correct { border-color: var(--success); background: var(--success-soft); }
+    .choice-btn.correct .choice-num { background: var(--success); border-color: var(--success); color: #fff; }
+    .choice-btn.wrong { border-color: var(--danger); background: var(--danger-soft); }
+    .choice-btn.wrong .choice-num { background: var(--danger); border-color: var(--danger); color: #fff; }
+
+    .q-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .exp-box {
+      margin-top: 16px;
+      padding: 15px 17px;
+      border-radius: 11px;
+      background: var(--primary-soft);
+      border-left: 4px solid var(--primary);
+      font-size: 14px;
+      line-height: 1.7;
+      display: none;
+    }
+    .exp-box.show { display: block; }
+    .exp-title { font-weight: 800; color: var(--primary); margin-bottom: 6px; }
+    .exp-empty { color: var(--muted); font-style: italic; }
+
+    .cbt-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    /* Mock Exam Layout */
+    .mock-layout {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .mock-layout { grid-template-columns: 1fr; }
+    }
+    .omr-panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 78px;
+    }
+    .omr-timer {
+      font-size: 22px;
+      font-weight: 800;
+      text-align: center;
+      padding: 8px;
+      border-radius: 10px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      margin-bottom: 10px;
+      font-variant-numeric: tabular-nums;
+    }
+    .omr-section-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--muted);
+      margin: 10px 0 5px;
+    }
+    .omr-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 5px;
+    }
+    .omr-cell {
+      padding: 5px 2px;
+      text-align: center;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .omr-cell.current { outline: 2px solid var(--primary); }
+    .omr-cell.answered { background: var(--primary-soft); border-color: var(--primary); color: var(--primary); }
+    .omr-cell.is-correct { background: var(--success-soft); border-color: var(--success); color: var(--success); }
+    .omr-cell.is-wrong { background: var(--danger-soft); border-color: var(--danger); color: var(--danger); }
+
+    .result-banner {
+      padding: 20px;
+      border-radius: var(--radius);
+      margin-bottom: 16px;
+      border: 2px solid var(--border);
+      text-align: center;
+    }
+    .result-banner.pass { background: var(--success-soft); border-color: var(--success); }
+    .result-banner.fail { background: var(--danger-soft); border-color: var(--danger); }
+    .result-scores {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .result-score-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+    }
+
+    /* Modals */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 16px;
+    }
+    .modal-backdrop.open { display: flex; }
+    .modal-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      max-width: 780px;
+      width: 100%;
+      max-height: 82vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow);
+    }
+    .modal-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 800;
+    }
+    .modal-body { padding: 16px 18px; overflow-y: auto; }
+    .num-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(46px, 1fr));
+      gap: 7px;
+    }
+    .num-cell {
+      padding: 7px 4px;
+      text-align: center;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .num-cell.current { outline: 2.5px solid var(--primary); }
+    .num-cell.is-correct { background: var(--success-soft); border-color: var(--success); color: var(--success); }
+    .num-cell.is-wrong { background: var(--danger-soft); border-color: var(--danger); color: var(--danger); }
+    .num-cell.is-bookmarked::after { content: "★"; font-size: 10px; margin-left: 2px; color: var(--warn); }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+    }
+
+    #imgModal img {
+      max-width: 92vw;
+      max-height: 88vh;
+      border-radius: 10px;
+      background: #fff;
+      padding: 6px;
+    }
+
+    .kbd-hint {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 640px) {
+      .q-card { padding: 16px; }
+      .q-num-title { font-size: 15.5px; }
+      .choice-btn { font-size: 14px; padding: 10px 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="brand">
+      <span class="brand-badge">실내건축산업기사</span>
+      <div>
+        <h1>2016~2020 기출문제 CBT</h1>
+        <div class="brand-sub" id="metaSubtitle">로딩 중...</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn" id="btnNavGrid">📋 문제 번호표</button>
+      <button class="btn" id="btnDarkMode">🌙 다크모드</button>
+      <button class="btn btn-danger" id="btnReset">🔄 기록 초기화</button>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <!-- Stats & Filters -->
+  <div class="panel" id="topPanel">
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-label">현재 필터 문제</div>
+        <div class="stat-val blue" id="statFiltered">0</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">누적 풀이 완료</div>
+        <div class="stat-val" id="statSolved">0</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">정답 / 오답</div>
+        <div class="stat-val"><span id="statCorrect" style="color:var(--success)">0</span> / <span id="statWrong" style="color:var(--danger)">0</span></div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">누적 정답률</div>
+        <div class="stat-val green" id="statAcc">0%</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-label">북마크 (★)</div>
+        <div class="stat-val" id="statBookmark">0</div>
+      </div>
+    </div>
+
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progressFill"></div>
+    </div>
+
+    <div class="filters-row" id="filtersRow">
+      <div class="filter-group">
+        <label>과목 선택 (3과목)</label>
+        <select id="filterSubject">
+          <option value="ALL">전체 과목 (1,100문항)</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>연도 선택</label>
+        <select id="filterYear">
+          <option value="ALL">전체 연도 (2016~2020)</option>
+          <option value="2020">2020년</option>
+          <option value="2019">2019년</option>
+          <option value="2018">2018년</option>
+          <option value="2017">2017년</option>
+          <option value="2016">2016년</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>풀이 상태</label>
+        <select id="filterStatus">
+          <option value="ALL">모든 문제</option>
+          <option value="UNSOLVED">안 푼 문제만</option>
+          <option value="WRONG">틀린 문제만 (오답노트)</option>
+          <option value="BOOKMARK">북마크한 문제만 (★)</option>
+          <option value="HAS_EXP">해설 있는 문제만</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>정렬 순서</label>
+        <select id="filterSort">
+          <option value="NEWEST">최신순 (2020 → 2016)</option>
+          <option value="OLDEST">과거순 (2016 → 2020)</option>
+          <option value="SHUFFLE">랜덤 섞기</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>키워드 검색</label>
+        <input type="text" id="filterSearch" placeholder="문제 또는 해설 검색..." />
+      </div>
+    </div>
+  </div>
+
+  <!-- Mode Bar -->
+  <div class="mode-bar">
+    <div class="mode-tabs">
+      <button class="btn active" id="modeSingleBtn">🎯 한 문제씩 풀기</button>
+      <button class="btn" id="modeListBtn">📄 전체 리스트 보기</button>
+      <button class="btn" id="modeMockBtn">📝 60문제 모의고사</button>
+    </div>
+    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+      <button class="btn" id="btnToggleAllAns" style="display:none;">👁️ 전체 정답/해설 보이기</button>
+      <button class="btn" id="btnReshuffle" style="display:none;">🎲 다시 섞기</button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div id="quizContainer"></div>
+
+  <div class="kbd-hint" id="kbdHint">
+    💡 단축키: 숫자키 <b>1~4</b> 선택 · <b>← / →</b> 이전/다음 문제 · <b>Space</b> 정답/해설 보기
+  </div>
+</div>
+
+<!-- Number Grid Modal -->
+<div class="modal-backdrop" id="gridModal">
+  <div class="modal-card">
+    <div class="modal-header">
+      <span>문제 번호표 (총 <span id="gridTotalCount">0</span>문항)</span>
+      <button class="btn" id="btnCloseGrid">닫기 ✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="num-grid" id="numGrid"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Image Zoom Modal -->
+<div class="modal-backdrop" id="imgModal" onclick="this.classList.remove('open')">
+  <img id="zoomedImg" src="" alt="확대 이미지" />
+</div>
+
+<script src="questions.js"></script>
+<script>
+(function() {
+  const DATA = window.CBT_DATA;
+  if (!DATA || !DATA.questions) {
+    document.getElementById("quizContainer").innerHTML = "<div class='panel'>questions.js 데이터를 불러오지 못했습니다.</div>";
+    return;
+  }
+
+  const SUBJECTS = DATA.meta.subjects || [
+    "1. 실내디자인 계획",
+    "2. 실내디자인 시공 및 재료",
+    "3. 실내디자인 환경"
+  ];
+
+  const STORAGE_KEY = "silnae_cbt_progress_v1";
+  const CAN_SYNC_SERVER = location.protocol === "http:" || location.protocol === "https:";
+  let state = {
+    answers: {},
+    bookmarks: {},
+    mockHistory: [],
+    dark: false,
+    updatedAt: 0
+  };
+
+  try {
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+    if (saved.answers) state.answers = saved.answers;
+    if (saved.bookmarks) state.bookmarks = saved.bookmarks;
+    if (saved.mockHistory) state.mockHistory = saved.mockHistory;
+    if (saved.dark) state.dark = true;
+    if (typeof saved.updatedAt === "number") state.updatedAt = saved.updatedAt;
+  } catch (e) {}
+
+  function pushStateToServer() {
+    if (!CAN_SYNC_SERVER) return;
+    fetch("/api/state", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(state),
+      keepalive: true
+    }).catch(() => {});
+  }
+
+  function saveState() {
+    state.updatedAt = Date.now();
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    pushStateToServer();
+  }
+
+  async function syncFromServer(isInitial = false) {
+    if (!CAN_SYNC_SERVER) return;
+    try {
+      const res = await fetch("/api/state?t=" + Date.now(), { cache: "no-store" });
+      if (!res.ok) return;
+      const remote = await res.json();
+      if (!remote || typeof remote !== "object") return;
+
+      const remoteHasData =
+        (remote.answers && Object.keys(remote.answers).length > 0) ||
+        (remote.bookmarks && Object.keys(remote.bookmarks).length > 0) ||
+        (Array.isArray(remote.mockHistory) && remote.mockHistory.length > 0) ||
+        typeof remote.updatedAt === "number";
+
+      const localHasData =
+        Object.keys(state.answers).length > 0 ||
+        Object.keys(state.bookmarks).length > 0 ||
+        state.mockHistory.length > 0;
+
+      if (isInitial && !remoteHasData && localHasData) {
+        if (!state.updatedAt) state.updatedAt = Date.now();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        pushStateToServer();
+        return;
+      }
+
+      const remoteUpdatedAt = typeof remote.updatedAt === "number" ? remote.updatedAt : (remoteHasData ? 1 : 0);
+      if (remoteUpdatedAt > (state.updatedAt || 0)) {
+        state.answers = remote.answers || {};
+        state.bookmarks = remote.bookmarks || {};
+        state.mockHistory = Array.isArray(remote.mockHistory) ? remote.mockHistory : [];
+        state.dark = !!remote.dark;
+        state.updatedAt = remoteUpdatedAt;
+        document.body.classList.toggle("dark", state.dark);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        applyFilters(true);
+      }
+    } catch (e) {}
+  }
+
+  if (state.dark) document.body.classList.add("dark");
+
+  const m = DATA.meta;
+  document.getElementById("metaSubtitle").textContent =
+    `총 ${m.totalRaw.toLocaleString()}문항 중 중복 ${m.duplicatesRemoved}문항 제거 → ${m.totalUnique.toLocaleString()}문항 (해설 ${m.withExplanation}개)`;
+
+  const subjSelect = document.getElementById("filterSubject");
+  SUBJECTS.forEach(s => {
+    const cnt = DATA.questions.filter(q => q.subject === s).length;
+    const opt = document.createElement("option");
+    opt.value = s;
+    opt.textContent = `${s} (${cnt}문항)`;
+    subjSelect.appendChild(opt);
+  });
+
+  // App runtime state
+  let mode = "single"; // 'single' | 'list' | 'mock'
+  let filtered = [];
+  let currentIdx = 0;
+  let listPage = 1;
+  const LIST_PAGE_SIZE = 30;
+  let showAllAnsInList = false;
+  let revealedSingle = {};
+
+  // Mock exam state
+  let mock = {
+    active: false,
+    submitted: false,
+    questions: [],
+    userAns: {},      // { [index]: 1..4 }
+    currentIdx: 0,
+    secondsLeft: 3600,
+    timerId: null,
+    onlyWrongReview: false
+  };
+
+  const quizContainer = document.getElementById("quizContainer");
+  const filterSubject = document.getElementById("filterSubject");
+  const filterYear = document.getElementById("filterYear");
+  const filterStatus = document.getElementById("filterStatus");
+  const filterSort = document.getElementById("filterSort");
+  const filterSearch = document.getElementById("filterSearch");
+
+  function stripHtml(html) {
+    const tmp = document.createElement("div");
+    tmp.innerHTML = html || "";
+    return (tmp.textContent || tmp.innerText || "").toLowerCase();
+  }
+
+  function shuffleArr(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function applyFilters(keepIndex = false) {
+    const subj = filterSubject.value;
+    const yr = filterYear.value;
+    const st = filterStatus.value;
+    const sort = filterSort.value;
+    const kw = filterSearch.value.trim().toLowerCase();
+
+    let list = DATA.questions.filter(q => {
+      if (subj !== "ALL" && q.subject !== subj) return false;
+      if (yr !== "ALL" && q.year !== yr && !(q.appearances || []).some(a => a.startsWith(yr))) return false;
+      if (st === "UNSOLVED" && state.answers[q.id]) return false;
+      if (st === "WRONG" && (!state.answers[q.id] || state.answers[q.id] === q.answer)) return false;
+      if (st === "BOOKMARK" && !state.bookmarks[q.id]) return false;
+      if (st === "HAS_EXP" && !q.explanation) return false;
+      if (kw) {
+        const hay = stripHtml(q.question) + " " + q.choices.map(stripHtml).join(" ") + " " + stripHtml(q.explanation);
+        if (!hay.includes(kw)) return false;
+      }
+      return true;
+    });
+
+    if (sort === "OLDEST") list = list.slice().reverse();
+    else if (sort === "SHUFFLE") list = shuffleArr(list);
+
+    filtered = list;
+    if (!keepIndex) {
+      currentIdx = 0;
+      listPage = 1;
+    } else if (currentIdx >= filtered.length) {
+      currentIdx = Math.max(0, filtered.length - 1);
+    }
+
+    document.getElementById("btnReshuffle").style.display = (mode !== "mock" && sort === "SHUFFLE") ? "inline-flex" : "none";
+    updateStats();
+    render();
+  }
+
+  function updateStats() {
+    const total = DATA.questions.length;
+    let solved = 0, correct = 0, wrong = 0, bm = 0;
+    for (const q of DATA.questions) {
+      const a = state.answers[q.id];
+      if (a) {
+        solved++;
+        if (a === q.answer) correct++;
+        else wrong++;
+      }
+      if (state.bookmarks[q.id]) bm++;
+    }
+    const acc = solved > 0 ? Math.round((correct / solved) * 100) : 0;
+    document.getElementById("statFiltered").textContent = filtered.length.toLocaleString();
+    document.getElementById("statSolved").textContent = `${solved.toLocaleString()} / ${total.toLocaleString()}`;
+    document.getElementById("statCorrect").textContent = correct.toLocaleString();
+    document.getElementById("statWrong").textContent = wrong.toLocaleString();
+    document.getElementById("statAcc").textContent = `${acc}%`;
+    document.getElementById("statBookmark").textContent = bm.toLocaleString();
+    document.getElementById("progressFill").style.width = `${Math.round((solved / total) * 100)}%`;
+  }
+
+  function renderQuestionCard(q, displayNum, forceShowAns = false) {
+    const userAns = state.answers[q.id];
+    const isAnswered = !!userAns;
+    const isRevealed = isAnswered || forceShowAns || !!revealedSingle[q.id];
+    const isBookmarked = !!state.bookmarks[q.id];
+
+    const dupBadges = (q.appearances && q.appearances.length > 1)
+      ? `<span class="badge dup" title="중복 출제된 회차: ${q.appearances.join(', ')}">중복 출제 ${q.appearances.length}회 (${q.appearances.slice(1).join(', ')})</span>`
+      : "";
+
+    let choicesHtml = "";
+    q.choices.forEach((cHtml, idx) => {
+      const cNum = idx + 1;
+      let cls = "choice-btn";
+      if (isRevealed) {
+        if (cNum === q.answer) cls += " correct";
+        else if (userAns === cNum && cNum !== q.answer) cls += " wrong";
+      }
+      choicesHtml += `
+        <button class="${cls}" data-qid="${q.id}" data-choice="${cNum}">
+          <span class="choice-num">${cNum}</span>
+          <span>${cHtml}</span>
+        </button>
+      `;
+    });
+
+    const expContent = q.explanation
+      ? q.explanation
+      : `<span class="exp-empty">등록된 해설이 없습니다. (정답: ${q.answer}번)</span>`;
+
+    return `
+      <div class="q-card" id="qcard-${q.id}">
+        <div class="q-meta">
+          <div class="q-badges">
+            <span class="badge subj">${q.subject}</span>
+            <span class="badge">${q.examLabel} #${q.num}</span>
+            ${dupBadges}
+            <span class="badge">정답률 ${q.rate}%</span>
+          </div>
+          <button class="btn" data-bm="${q.id}">${isBookmarked ? "★ 북마크됨" : "☆ 북마크"}</button>
+        </div>
+
+        <div class="q-num-title">
+          <span class="q-num">Q${displayNum}.</span>${q.question}
+        </div>
+
+        <div class="choices">${choicesHtml}</div>
+
+        <div class="q-footer">
+          <div style="font-size:13px; font-weight:700; color:${isAnswered ? (userAns === q.answer ? 'var(--success)' : 'var(--danger)') : 'var(--muted)'}">
+            ${isAnswered
+              ? (userAns === q.answer ? "✅ 정답입니다!" : `❌ 오답입니다. (정답: ${q.answer}번)`)
+              : (isRevealed ? `📌 정답: ${q.answer}번` : "보기를 선택해 주세요.")}
+          </div>
+          <button class="btn" data-peek="${q.id}">${isRevealed ? "해설 접기/확인" : "👁️ 정답·해설 보기"}</button>
+        </div>
+
+        <div class="exp-box ${isRevealed ? "show" : ""}" id="exp-${q.id}">
+          <div class="exp-title">💡 정답 [${q.answer}번] 및 해설</div>
+          <div>${expContent}</div>
+        </div>
+      </div>
+    `;
+  }
+
+  // Mock Exam Functions
+  function startMockExam(preferUnsolved = false) {
+    if (mock.timerId) clearInterval(mock.timerId);
+    const picked = [];
+    for (const s of SUBJECTS) {
+      let pool = DATA.questions.filter(q => q.subject === s);
+      if (preferUnsolved) {
+        const unsolved = shuffleArr(pool.filter(q => !state.answers[q.id]));
+        const solved = shuffleArr(pool.filter(q => state.answers[q.id]));
+        pool = unsolved.concat(solved);
+      } else {
+        pool = shuffleArr(pool);
+      }
+      picked.push(...pool.slice(0, 20));
+    }
+
+    mock = {
+      active: true,
+      submitted: false,
+      questions: picked,
+      userAns: {},
+      currentIdx: 0,
+      secondsLeft: 3600,
+      timerId: null,
+      onlyWrongReview: false
+    };
+
+    mock.timerId = setInterval(() => {
+      if (!mock.active || mock.submitted) return;
+      mock.secondsLeft--;
+      const el = document.getElementById("mockTimerDisplay");
+      if (el) el.textContent = formatTime(mock.secondsLeft);
+      if (mock.secondsLeft <= 0) {
+        submitMockExam(true);
+      }
+    }, 1000);
+
+    render();
+  }
+
+  function formatTime(sec) {
+    const s = Math.max(0, sec);
+    const mm = String(Math.floor(s / 60)).padStart(2, "0");
+    const ss = String(s % 60).padStart(2, "0");
+    return `⏱️ ${mm}:${ss}`;
+  }
+
+  function submitMockExam(auto = false) {
+    if (!auto) {
+      const answeredCnt = Object.keys(mock.userAns).length;
+      if (answeredCnt < mock.questions.length) {
+        if (!confirm(`아직 풀지 않은 문제가 ${mock.questions.length - answeredCnt}개 있습니다. 제출하고 채점할까요?`)) return;
+      }
+    }
+    mock.submitted = true;
+    if (mock.timerId) { clearInterval(mock.timerId); mock.timerId = null; }
+
+    // Save answers into global progress & record mock history
+    let totalCorrect = 0;
+    const subjScores = SUBJECTS.map(s => ({ subject: s, correct: 0, total: 20, score: 0 }));
+
+    mock.questions.forEach((q, idx) => {
+      const ua = mock.userAns[idx];
+      if (ua) {
+        state.answers[q.id] = ua;
+      }
+      if (ua === q.answer) {
+        totalCorrect++;
+        const sIdx = Math.floor(idx / 20);
+        if (subjScores[sIdx]) subjScores[sIdx].correct++;
+      }
+    });
+
+    subjScores.forEach(s => { s.score = Math.round((s.correct / s.total) * 100); });
+    const avgScore = Math.round((totalCorrect / 60) * 100);
+    const hasFailSubj = subjScores.some(s => s.score < 40);
+    const passed = avgScore >= 60 && !hasFailSubj;
+
+    state.mockHistory.unshift({
+      date: new Date().toLocaleString("ko-KR"),
+      avg: avgScore,
+      correct: totalCorrect,
+      passed
+    });
+    if (state.mockHistory.length > 20) state.mockHistory.length = 20;
+
+    saveState();
+    updateStats();
+    render();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function renderMockView() {
+    if (!mock.active) {
+      const histHtml = state.mockHistory.length
+        ? `<div style="margin-top:20px; text-align:left;">
+            <div style="font-weight:800; font-size:14px; margin-bottom:8px;">📊 최근 모의고사 기록</div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              ${state.mockHistory.slice(0, 5).map(h => `
+                <div style="display:flex; justify-content:space-between; padding:8px 12px; background:var(--bg); border:1px solid var(--border); border-radius:8px; font-size:13px;">
+                  <span>${h.date}</span>
+                  <span><b>${h.avg}점</b> (${h.correct}/60) · <b style="color:${h.passed ? 'var(--success)' : 'var(--danger)'}">${h.passed ? '합격' : '불합격'}</b></span>
+                </div>
+              `).join("")}
+            </div>
+          </div>`
+        : "";
+
+      quizContainer.innerHTML = `
+        <div class="panel" style="text-align:center; padding:36px 22px;">
+          <h2 style="margin:0 0 8px;">📝 60문제 실전 모의고사</h2>
+          <p style="color:var(--muted); margin:0 0 20px;">
+            실제 시험과 동일하게 <b>3개 과목 각 20문항씩 총 60문항</b>(제한시간 60분)이 출제됩니다.<br/>
+            과목당 40점 이상, 전 과목 평균 60점 이상이면 합격입니다.
+          </p>
+          <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+            <button class="btn btn-primary" id="btnStartMockRandom" style="padding:11px 20px; font-size:15px;">🚀 새 모의고사 시작 (전체 랜덤)</button>
+            <button class="btn" id="btnStartMockUnsolved" style="padding:11px 20px; font-size:15px;">✨ 안 푼 문제 우선 출제</button>
+          </div>
+          ${histHtml}
+        </div>
+      `;
+      document.getElementById("btnStartMockRandom").onclick = () => startMockExam(false);
+      document.getElementById("btnStartMockUnsolved").onclick = () => startMockExam(true);
+      return;
+    }
+
+    // Submitted summary view + review
+    let resultBannerHtml = "";
+    if (mock.submitted) {
+      let totalCorrect = 0;
+      const subjScores = SUBJECTS.map((s, sIdx) => {
+        let c = 0;
+        for (let i = sIdx * 20; i < (sIdx + 1) * 20; i++) {
+          if (mock.userAns[i] === mock.questions[i].answer) c++;
+        }
+        totalCorrect += c;
+        return { subject: s, correct: c, score: c * 5 };
+      });
+      const avg = Math.round((totalCorrect / 60) * 100);
+      const hasFail = subjScores.some(s => s.score < 40);
+      const passed = avg >= 60 && !hasFail;
+
+      resultBannerHtml = `
+        <div class="result-banner ${passed ? "pass" : "fail"}">
+          <div style="font-size:24px; font-weight:900; color:${passed ? 'var(--success)' : 'var(--danger)'}">
+            ${passed ? "🎉 합격입니다!" : "😢 아쉽습니다 (불합격)"}
+          </div>
+          <div style="font-size:16px; font-weight:700; margin-top:4px;">
+            총점 평균 <b>${avg}점</b> (${totalCorrect} / 60문항 정답)
+            ${hasFail ? " · <span style='color:var(--danger)'>과락 과목 있음 (40점 미만)</span>" : ""}
+          </div>
+          <div class="result-scores">
+            ${subjScores.map(s => `
+              <div class="result-score-card">
+                <div style="font-size:12px; color:var(--muted); font-weight:700;">${s.subject}</div>
+                <div style="font-size:20px; font-weight:800; color:${s.score < 40 ? 'var(--danger)' : 'var(--text)'}">
+                  ${s.score}점 <span style="font-size:12px; font-weight:600;">(${s.correct}/20)</span>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+          <div style="margin-top:14px; display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
+            <button class="btn ${mock.onlyWrongReview ? '' : 'active'}" id="btnMockAllReview">전체 60문항 해설 보기</button>
+            <button class="btn ${mock.onlyWrongReview ? 'active' : ''}" id="btnMockWrongReview">틀린 문제만 보기 (${60 - totalCorrect}문항)</button>
+            <button class="btn btn-primary" id="btnMockRetry">🔄 새 모의고사 다시 풀기</button>
+          </div>
+        </div>
+      `;
+    }
+
+    const qIdx = mock.currentIdx;
+    const q = mock.questions[qIdx];
+    const ua = mock.userAns[qIdx];
+
+    let choicesHtml = "";
+    q.choices.forEach((cHtml, idx) => {
+      const cNum = idx + 1;
+      let cls = "choice-btn";
+      if (mock.submitted) {
+        if (cNum === q.answer) cls += " correct";
+        else if (ua === cNum && cNum !== q.answer) cls += " wrong";
+      } else if (ua === cNum) {
+        cls += " selected";
+      }
+      choicesHtml += `
+        <button class="${cls}" data-mock-choice="${cNum}">
+          <span class="choice-num">${cNum}</span>
+          <span>${cHtml}</span>
+        </button>
+      `;
+    });
+
+    const expHtml = mock.submitted ? `
+      <div class="exp-box show">
+        <div class="exp-title">💡 정답 [${q.answer}번] 및 해설</div>
+        <div>${q.explanation || `<span class="exp-empty">등록된 해설이 없습니다. (정답: ${q.answer}번)</span>`}</div>
+      </div>
+    ` : "";
+
+    const omrSections = SUBJECTS.map((s, sIdx) => {
+      let cells = "";
+      for (let i = sIdx * 20; i < (sIdx + 1) * 20; i++) {
+        if (mock.onlyWrongReview && mock.submitted && mock.userAns[i] === mock.questions[i].answer) continue;
+        let cls = "omr-cell";
+        if (i === qIdx) cls += " current";
+        if (mock.submitted) {
+          cls += (mock.userAns[i] === mock.questions[i].answer) ? " is-correct" : " is-wrong";
+        } else if (mock.userAns[i]) {
+          cls += " answered";
+        }
+        cells += `<div class="${cls}" data-omr="${i}">${i + 1}</div>`;
+      }
+      return `<div class="omr-section-title">${s}</div><div class="omr-grid">${cells}</div>`;
+    }).join("");
+
+    quizContainer.innerHTML = `
+      ${resultBannerHtml}
+      <div class="mock-layout">
+        <div>
+          <div class="q-card">
+            <div class="q-meta">
+              <div class="q-badges">
+                <span class="badge subj">${q.subject}</span>
+                <span class="badge">모의고사 ${qIdx + 1} / 60</span>
+                <span class="badge">${q.examLabel} #${q.num}</span>
+              </div>
+              <button class="btn" data-bm="${q.id}">${state.bookmarks[q.id] ? "★ 북마크됨" : "☆ 북마크"}</button>
+            </div>
+            <div class="q-num-title"><span class="q-num">${qIdx + 1}.</span>${q.question}</div>
+            <div class="choices">${choicesHtml}</div>
+            ${expHtml}
+          </div>
+          <div class="cbt-nav">
+            <button class="btn" id="mockPrev" ${qIdx === 0 ? "disabled" : ""}>← 이전 문제</button>
+            <span style="font-size:13px; font-weight:700; color:var(--muted);">${qIdx + 1} / 60</span>
+            <button class="btn btn-primary" id="mockNext" ${qIdx >= 59 ? "disabled" : ""}>다음 문제 →</button>
+          </div>
+        </div>
+
+        <div class="omr-panel">
+          <div class="omr-timer" id="mockTimerDisplay">${mock.submitted ? "채점 완료" : formatTime(mock.secondsLeft)}</div>
+          <div style="font-size:12px; color:var(--muted); text-align:center; margin-bottom:8px;">
+            답안 표기: <b>${Object.keys(mock.userAns).length} / 60</b>
+          </div>
+          ${omrSections}
+          <div style="margin-top:14px; display:flex; flex-direction:column; gap:7px;">
+            ${!mock.submitted ? `<button class="btn btn-success" id="btnSubmitMock" style="justify-content:center; padding:10px;">✅ 답안 제출 및 채점</button>` : ""}
+            <button class="btn btn-danger" id="btnExitMock" style="justify-content:center;">모의고사 종료</button>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Mock event bindings
+    if (mock.submitted) {
+      document.getElementById("btnMockAllReview").onclick = () => { mock.onlyWrongReview = false; render(); };
+      document.getElementById("btnMockWrongReview").onclick = () => {
+        mock.onlyWrongReview = true;
+        const firstWrong = mock.questions.findIndex((qq, i) => mock.userAns[i] !== qq.answer);
+        if (firstWrong >= 0) mock.currentIdx = firstWrong;
+        render();
+      };
+      document.getElementById("btnMockRetry").onclick = () => startMockExam(false);
+    } else {
+      document.getElementById("btnSubmitMock").onclick = () => submitMockExam(false);
+    }
+    document.getElementById("btnExitMock").onclick = () => {
+      if (!mock.submitted && !confirm("진행 중인 모의고사를 종료할까요?")) return;
+      if (mock.timerId) { clearInterval(mock.timerId); mock.timerId = null; }
+      mock.active = false;
+      render();
+    };
+    document.getElementById("mockPrev").onclick = () => { if (mock.currentIdx > 0) { mock.currentIdx--; render(); } };
+    document.getElementById("mockNext").onclick = () => { if (mock.currentIdx < 59) { mock.currentIdx++; render(); } };
+  }
+
+  function render() {
+    const isMock = (mode === "mock");
+    document.getElementById("filtersRow").style.display = isMock ? "none" : "grid";
+    document.getElementById("btnNavGrid").style.display = isMock ? "none" : "inline-flex";
+
+    if (isMock) {
+      document.getElementById("kbdHint").style.display = mock.active ? "block" : "none";
+      renderMockView();
+      return;
+    }
+
+    if (filtered.length === 0) {
+      quizContainer.innerHTML = `<div class="panel" style="text-align:center; padding:40px 20px; color:var(--muted);">조건에 맞는 문제가 없습니다. 필터를 변경해 보세요.</div>`;
+      return;
+    }
+
+    if (mode === "single") {
+      const q = filtered[currentIdx];
+      quizContainer.innerHTML = renderQuestionCard(q, currentIdx + 1, false) + `
+        <div class="cbt-nav">
+          <button class="btn" id="btnPrev" ${currentIdx === 0 ? "disabled" : ""}>← 이전 문제</button>
+          <span style="font-size:13px; font-weight:700; color:var(--muted);">${currentIdx + 1} / ${filtered.length}</span>
+          <button class="btn btn-primary" id="btnNext" ${currentIdx >= filtered.length - 1 ? "disabled" : ""}>다음 문제 →</button>
+        </div>
+      `;
+      document.getElementById("kbdHint").style.display = "block";
+      document.getElementById("btnPrev").onclick = () => { if (currentIdx > 0) { currentIdx--; render(); window.scrollTo({top:0, behavior:'smooth'}); } };
+      document.getElementById("btnNext").onclick = () => { if (currentIdx < filtered.length - 1) { currentIdx++; render(); window.scrollTo({top:0, behavior:'smooth'}); } };
+    } else {
+      document.getElementById("kbdHint").style.display = "none";
+      const totalPages = Math.ceil(filtered.length / LIST_PAGE_SIZE);
+      if (listPage > totalPages) listPage = totalPages;
+      const start = (listPage - 1) * LIST_PAGE_SIZE;
+      const slice = filtered.slice(start, start + LIST_PAGE_SIZE);
+
+      let html = slice.map((q, i) => renderQuestionCard(q, start + i + 1, showAllAnsInList)).join("");
+      html += `
+        <div class="pagination">
+          <button class="btn" id="pagePrev" ${listPage <= 1 ? "disabled" : ""}>← 이전 페이지</button>
+          <span style="font-size:13px; font-weight:700;">${listPage} / ${totalPages} 페이지 (총 ${filtered.length}문항)</span>
+          <button class="btn btn-primary" id="pageNext" ${listPage >= totalPages ? "disabled" : ""}>다음 페이지 →</button>
+        </div>
+      `;
+      quizContainer.innerHTML = html;
+      document.getElementById("pagePrev").onclick = () => { if (listPage > 1) { listPage--; render(); window.scrollTo({top:0, behavior:'smooth'}); } };
+      document.getElementById("pageNext").onclick = () => { if (listPage < totalPages) { listPage++; render(); window.scrollTo({top:0, behavior:'smooth'}); } };
+    }
+  }
+
+  // Event delegation inside quizContainer
+  quizContainer.addEventListener("click", (e) => {
+    const img = e.target.closest("img.q-img");
+    if (img) {
+      document.getElementById("zoomedImg").src = img.src;
+      document.getElementById("imgModal").classList.add("open");
+      return;
+    }
+
+    const mockChoice = e.target.closest("[data-mock-choice]");
+    if (mockChoice && mode === "mock" && mock.active && !mock.submitted) {
+      mock.userAns[mock.currentIdx] = Number(mockChoice.dataset.mockChoice);
+      render();
+      return;
+    }
+
+    const omrCell = e.target.closest("[data-omr]");
+    if (omrCell && mode === "mock" && mock.active) {
+      mock.currentIdx = Number(omrCell.dataset.omr);
+      render();
+      return;
+    }
+
+    const choiceBtn = e.target.closest(".choice-btn[data-qid]");
+    if (choiceBtn) {
+      const qid = Number(choiceBtn.dataset.qid);
+      const choice = Number(choiceBtn.dataset.choice);
+      state.answers[qid] = choice;
+      saveState();
+      updateStats();
+      render();
+      return;
+    }
+
+    const bmBtn = e.target.closest("[data-bm]");
+    if (bmBtn) {
+      const qid = Number(bmBtn.dataset.bm);
+      if (state.bookmarks[qid]) delete state.bookmarks[qid];
+      else state.bookmarks[qid] = true;
+      saveState();
+      updateStats();
+      render();
+      return;
+    }
+
+    const peekBtn = e.target.closest("[data-peek]");
+    if (peekBtn) {
+      const qid = Number(peekBtn.dataset.peek);
+      revealedSingle[qid] = !revealedSingle[qid];
+      render();
+      return;
+    }
+  });
+
+  function setActiveModeTab(id) {
+    ["modeSingleBtn", "modeListBtn", "modeMockBtn"].forEach(b => {
+      document.getElementById(b).classList.toggle("active", b === id);
+    });
+  }
+
+  document.getElementById("modeSingleBtn").onclick = () => {
+    mode = "single";
+    setActiveModeTab("modeSingleBtn");
+    document.getElementById("btnToggleAllAns").style.display = "none";
+    document.getElementById("btnReshuffle").style.display = (filterSort.value === "SHUFFLE") ? "inline-flex" : "none";
+    render();
+  };
+  document.getElementById("modeListBtn").onclick = () => {
+    mode = "list";
+    setActiveModeTab("modeListBtn");
+    document.getElementById("btnToggleAllAns").style.display = "inline-flex";
+    document.getElementById("btnReshuffle").style.display = (filterSort.value === "SHUFFLE") ? "inline-flex" : "none";
+    render();
+  };
+  document.getElementById("modeMockBtn").onclick = () => {
+    mode = "mock";
+    setActiveModeTab("modeMockBtn");
+    document.getElementById("btnToggleAllAns").style.display = "none";
+    document.getElementById("btnReshuffle").style.display = "none";
+    render();
+  };
+
+  document.getElementById("btnToggleAllAns").onclick = () => {
+    showAllAnsInList = !showAllAnsInList;
+    document.getElementById("btnToggleAllAns").textContent = showAllAnsInList ? "🙈 전체 정답/해설 숨기기" : "👁️ 전체 정답/해설 보이기";
+    render();
+  };
+  document.getElementById("btnReshuffle").onclick = () => applyFilters(false);
+
+  [filterSubject, filterYear, filterStatus, filterSort].forEach(el => {
+    el.addEventListener("change", () => applyFilters(false));
+  });
+  let searchTimer = null;
+  filterSearch.addEventListener("input", () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(() => applyFilters(false), 180);
+  });
+
+  document.getElementById("btnDarkMode").onclick = () => {
+    state.dark = !state.dark;
+    document.body.classList.toggle("dark", state.dark);
+    saveState();
+  };
+
+  document.getElementById("btnReset").onclick = () => {
+    if (confirm("지금까지의 풀이 기록, 북마크, 모의고사 기록을 모두 초기화할까요?")) {
+      state.answers = {};
+      state.bookmarks = {};
+      state.mockHistory = [];
+      revealedSingle = {};
+      saveState();
+      applyFilters(false);
+    }
+  };
+
+  const gridModal = document.getElementById("gridModal");
+  document.getElementById("btnNavGrid").onclick = () => {
+    document.getElementById("gridTotalCount").textContent = filtered.length;
+    const grid = document.getElementById("numGrid");
+    grid.innerHTML = filtered.map((q, idx) => {
+      const a = state.answers[q.id];
+      let cls = "num-cell";
+      if (mode === "single" && idx === currentIdx) cls += " current";
+      if (a) cls += (a === q.answer ? " is-correct" : " is-wrong");
+      if (state.bookmarks[q.id]) cls += " is-bookmarked";
+      return `<div class="${cls}" data-gidx="${idx}">${idx + 1}</div>`;
+    }).join("");
+    gridModal.classList.add("open");
+  };
+  document.getElementById("btnCloseGrid").onclick = () => gridModal.classList.remove("open");
+  gridModal.addEventListener("click", (e) => {
+    if (e.target === gridModal) gridModal.classList.remove("open");
+    const cell = e.target.closest("[data-gidx]");
+    if (cell) {
+      const idx = Number(cell.dataset.gidx);
+      if (mode === "single") currentIdx = idx;
+      else listPage = Math.floor(idx / LIST_PAGE_SIZE) + 1;
+      gridModal.classList.remove("open");
+      render();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (document.activeElement && ["INPUT", "SELECT", "TEXTAREA"].includes(document.activeElement.tagName)) return;
+    if (gridModal.classList.contains("open")) return;
+
+    if (mode === "mock" && mock.active) {
+      if (!mock.submitted && ["1", "2", "3", "4"].includes(e.key)) {
+        mock.userAns[mock.currentIdx] = Number(e.key);
+        render();
+      } else if (e.key === "ArrowRight" && mock.currentIdx < 59) {
+        mock.currentIdx++; render();
+      } else if (e.key === "ArrowLeft" && mock.currentIdx > 0) {
+        mock.currentIdx--; render();
+      }
+      return;
+    }
+
+    if (mode !== "single" || filtered.length === 0) return;
+    const q = filtered[currentIdx];
+    if (["1", "2", "3", "4"].includes(e.key)) {
+      state.answers[q.id] = Number(e.key);
+      saveState();
+      updateStats();
+      render();
+    } else if (e.key === "ArrowRight" && currentIdx < filtered.length - 1) {
+      currentIdx++; render(); window.scrollTo({top:0, behavior:'smooth'});
+    } else if (e.key === "ArrowLeft" && currentIdx > 0) {
+      currentIdx--; render(); window.scrollTo({top:0, behavior:'smooth'});
+    } else if (e.key === " ") {
+      e.preventDefault();
+      revealedSingle[q.id] = !revealedSingle[q.id];
+      render();
+    }
+  });
+
+  applyFilters(false);
+  syncFromServer(true);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") syncFromServer(false);
+  });
+  setInterval(() => {
+    if (document.visibilityState === "visible") syncFromServer(false);
+  }, 5000);
+})();
+</script>
+</body>
+</html>
